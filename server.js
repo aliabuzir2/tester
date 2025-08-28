@@ -28,10 +28,10 @@ const config = {
   auth0Logout: true
 };
 
-// const port = process.env.PORT || 3000;
-// if (!config.baseURL && !process.env.BASE_URL && process.env.PORT && process.env.NODE_ENV !== 'production') {
-//   config.baseURL = `https://ali-tester:${port}`;
-// }
+const port = process.env.PORT || 3000;
+if (!config.baseURL && !process.env.BASE_URL && process.env.PORT && process.env.NODE_ENV !== 'production') {
+  config.baseURL = `https://ali-tester:${port}`;
+}
 
 app.use(auth(config));
 
@@ -59,7 +59,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-// https.createServer(options, app)
-//   .listen(port, () => {
-//     console.log(`Listening on ${config.baseURL}`);
-//   });
+https.createServer(options, app)
+  .listen(port, () => {
+    console.log(`Listening on ${config.baseURL}`);
+  });
