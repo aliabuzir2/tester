@@ -31,7 +31,7 @@ mv .env.example .env
 npm start
 ```
 
-The sample app will be served at `localhost:3000`.
+The sample app will be served at `ali-tester:3000`.
 
 ## Support + Feedback
 

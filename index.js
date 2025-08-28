@@ -1,10 +1,16 @@
 const dotenv = require('dotenv');
 const express = require('express');
-const http = require('http');
+const https = require('https');
 const logger = require('morgan');
 const path = require('path');
 const router = require('./routes/index');
 const { auth } = require('express-openid-connect');
+const fs = require('fs');
+const options = {
+  key: fs.readFileSync('./ali-tester-key.pem'),
+  cert: fs.readFileSync('./ali-tester.pem'),
+};
+
 
 dotenv.load();
 
@@ -24,7 +30,7 @@ const config = {
 
 const port = process.env.PORT || 3000;
 if (!config.baseURL && !process.env.BASE_URL && process.env.PORT && process.env.NODE_ENV !== 'production') {
-  config.baseURL = `http://localhost:${port}`;
+  config.baseURL = `https://ali-tester:${port}`;
 }
 
 app.use(auth(config));
@@ -53,7 +59,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-http.createServer(app)
+https.createServer(options, app)
   .listen(port, () => {
     console.log(`Listening on ${config.baseURL}`);
   });
